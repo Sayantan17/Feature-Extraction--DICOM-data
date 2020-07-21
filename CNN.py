@@ -169,18 +169,17 @@ def main():
         args.nclass, args.slicing, args.skip)
 
     nb_classes = args.nclass
-    if os.path.exists(td_npz):
-        loadeddata = np.load(td_npz)
-        X, Y = loadeddata["X"], loadeddata["Y"]
-    else:
-        x, y = loaddata(args.videos, vid3d, args.nclass,
-                        args.output, args.color, args.skip)
-        X = x.reshape((x.shape[0], img_rows, img_cols, frames, channel))
-        Y = np_utils.to_categorical(y, nb_classes)
+#########
+    loadeddata = np.load(td_npz)
+    X, Y = loadeddata["X"], loadeddata["Y"]
+########
+######
+    X = x.reshape((x.shape[0], img_rows, img_cols, slicing, channel))
+    Y = np_utils.to_categorical(y, nb_classes)
 
-        X = X.astype('float32')
-        #np.savez(fname_npz, X=X, Y=Y)
-        #print('Saved dataset to dataset.npz.')
+    X = X.astype('float32')
+    np.savez(td_npz, X=X, Y=Y)
+    print('Saved dataset to dataset.npz.')
     print('X_shape:{}\nY_shape:{}'.format(X.shape, Y.shape))
 
  
