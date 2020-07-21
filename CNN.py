@@ -189,6 +189,7 @@ def main():
 # Model Architecture --- just directly feeding in the input ROIs
 
     model=sequential()
+    ####### Imagine X.shape[:1] is 6, 36,36,8,1...........
     model.add(Conv3D(32, (3,3,3), activation='LeakyRelu', input_shape=(6, 36, 36, 8, 1)))
     model.add(MaxPooling3D(pool_size=(3, 3, 3), padding='valid', strides=(2, 2, 2)))
     model.add(Conv3D(48, (3,3,3), activation='LeakyRelu'))
